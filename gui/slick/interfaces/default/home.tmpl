@@ -343,7 +343,12 @@ $myShowList.sort(lambda x, y: cmp(x.name, y.name))
         #end if
     #end if
 
-    #if $cur_total != 0:
+    #if $curShow.download_only == 1:
+        #set $cur_downloaded = 1
+        #set $cur_total = 1
+        #set $download_stat = 'Download Only'
+        #set $download_stat_tip = ""
+    #else if $cur_total != 0:
         #set $download_stat = str($cur_downloaded)
         #set $download_stat_tip = "Downloaded: " + str($cur_downloaded)
         #if $cur_snatched > 0:
@@ -522,7 +527,12 @@ $myShowList.sort(lambda x, y: cmp(x.name, y.name))
         #end if
     #end if
 
-    #if $cur_total != 0:
+    #if $curShow.download_only == 1:
+        #set $cur_downloaded = 1
+        #set $cur_total = 1
+        #set $download_stat = 'Download Only'
+        #set $download_stat_tip = ""
+    #else if $cur_total != 0:
         #set $download_stat = str($cur_downloaded)
         #set $download_stat_tip = "Downloaded: " + str($cur_downloaded)
         #if $cur_snatched > 0:
