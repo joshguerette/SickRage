@@ -3802,7 +3802,7 @@ class Home(MainHandler):
                  flatten_folders=None, paused=None, directCall=False, air_by_date=None, sports=None, dvdorder=None,
                  indexerLang=None, subtitles=None, archive_firstmatch=None, rls_ignore_words=None,
                  rls_require_words=None, anime=None, blackWords=None, whiteWords=None, blacklist=None, whitelist=None,
-                 scene=None):
+                 scene=None, download_only=None):
 
         if show is None:
             errString = "Invalid show ID: " + str(show)
@@ -3865,6 +3865,7 @@ class Home(MainHandler):
         sports = config.checkbox_to_value(sports)
         anime = config.checkbox_to_value(anime)
         subtitles = config.checkbox_to_value(subtitles)
+        download_only = config.checkbox_to_value(download_only)
 
         indexer_lang = indexerLang
 
@@ -3967,6 +3968,7 @@ class Home(MainHandler):
             showObj.sports = sports
             showObj.subtitles = subtitles
             showObj.air_by_date = air_by_date
+            showObj.download_only = download_only
 
             if not directCall:
                 showObj.lang = indexer_lang
