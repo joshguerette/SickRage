@@ -956,6 +956,9 @@ class Manage(MainHandler):
 
         paused_all_same = True
         last_paused = None
+        
+        download_only_all_same = True
+        last_download_only = None
 
         anime_all_same = True
         last_anime = None
@@ -997,6 +1000,13 @@ class Manage(MainHandler):
                     paused_all_same = False
                 else:
                     last_paused = curShow.paused
+                    
+            if download_only_all_same:
+                # if we had a value already and this value is different then they're not all the same
+                if last_download_only not in (None, curShow.download_only):
+                    download_only_all_same = False
+                else:
+                    last_download_only = curShow.download_only
 
             if anime_all_same:
                 # if we had a value already and this value is different then they're not all the same
@@ -1044,6 +1054,7 @@ class Manage(MainHandler):
         t.showList = toEdit
         t.archive_firstmatch_value = last_archive_firstmatch if archive_firstmatch_all_same else None
         t.paused_value = last_paused if paused_all_same else None
+        t.download_only_value = last_download_only if download_only_all_same else None
         t.anime_value = last_anime if anime_all_same else None
         t.flatten_folders_value = last_flatten_folders if flatten_folders_all_same else None
         t.quality_value = last_quality if quality_all_same else None
@@ -1056,7 +1067,7 @@ class Manage(MainHandler):
         return _munge(t)
 
 
-    def massEditSubmit(self, archive_firstmatch=None, paused=None, anime=None, sports=None, scene=None, flatten_folders=None,
+    def massEditSubmit(self, archive_firstmatch=None, paused=None, download_only=None, anime=None, sports=None, scene=None, flatten_folders=None,
                        quality_preset=False,
                        subtitles=None, air_by_date=None, anyQualities=[], bestQualities=[], toEdit=None, *args,
                        **kwargs):
@@ -1097,6 +1108,12 @@ class Manage(MainHandler):
             else:
                 new_paused = True if paused == 'enable' else False
             new_paused = 'on' if new_paused else 'off'
+            
+            if download_only == 'keep':
+                new_download_only = showObj.download_only
+            else:
+                new_download_only = True if download_only == 'enable' else False
+            new_download_only = 'on' if new_download_only else 'off'
 
             if anime == 'keep':
                 new_anime = showObj.anime
@@ -1144,7 +1161,7 @@ class Manage(MainHandler):
                                                                        bestQualities, exceptions_list,
                                                                        archive_firstmatch=new_archive_firstmatch,
                                                                        flatten_folders=new_flatten_folders,
-                                                                       paused=new_paused, sports=new_sports,
+                                                                       paused=new_paused, download_only=new_download_only, sports=new_sports,
                                                                        subtitles=new_subtitles, anime=new_anime,
                                                                        scene=new_scene, air_by_date=new_air_by_date,
                                                                        directCall=True)

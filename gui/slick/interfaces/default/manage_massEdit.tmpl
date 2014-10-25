@@ -112,6 +112,17 @@
 </div>
 
 <div class="optionWrapper">
+    <span class="selectTitle">Download Only</span>
+    <div class="selectChoices">
+        <select id="edit_download_only" name="download_only">
+            <option value="keep">&lt; keep &gt;</option>
+            <option value="enable" #if $download_only_value then "selected=\"selected\"" else ""#>enable</option>
+            <option value="disable" #if $download_only_value == False then "selected=\"selected\"" else ""#>disable</option>
+        </select>
+    </div><br />
+</div>
+
+<div class="optionWrapper">
     <span class="selectTitle">Scene Numbering</span>
     <div class="selectChoices">
         <select id="edit_scene" name="scene">
